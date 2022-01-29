@@ -36,8 +36,7 @@ public class SceneManager {
 
         switch (sceneIndex) {
             case MAIN: {
-                setIndexAndStartScene(
-                        c,
+                setIndexAndStartScene(c,
                         R.layout.activity_main,
                         EScenes.MAIN,
                         MainActivity.class);
