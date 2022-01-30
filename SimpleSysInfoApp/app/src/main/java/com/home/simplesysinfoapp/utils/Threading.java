@@ -5,6 +5,8 @@ import com.home.simplesysinfoapp.interfaces.ICustomRunnable;
 public class Threading {
     private static Threading instance;
 
+    private static final long ZERO_DELAY = 0L;
+
     private final CustomLogger logger;
 
     private Threading() {
@@ -19,7 +21,7 @@ public class Threading {
     }
 
     public void runInBackground(ICustomRunnable runnable) {
-        runWithDelay(runnable, 0L);
+        runWithDelay(runnable, ZERO_DELAY);
     }
 
     public void runWithDelay(ICustomRunnable runnable, long delayMilliseconds) {
@@ -27,12 +29,13 @@ public class Threading {
             @Override
             public void run() {
                 try {
-                    if (delayMilliseconds > 0L)
+                    if (delayMilliseconds > ZERO_DELAY)
                         sleep(delayMilliseconds);
 
                     runnable.run();
                 } catch (InterruptedException e) {
                     logger.printError(e.getMessage());
+                    Thread.currentThread().interrupt();
                 }
             }
         };
